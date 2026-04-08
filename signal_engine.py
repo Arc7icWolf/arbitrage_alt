@@ -49,7 +49,7 @@ def compute_signals(entries):
                 "threshold_used": key if key in THRESHOLDS else "default",
             }
 
-            print("🚨 SEGNALE:", signal)
+            print("🚨 SIGNAL:", signal)
             signals.append(signal)
 
     return signals

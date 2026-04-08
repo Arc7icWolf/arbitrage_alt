@@ -1,6 +1,6 @@
 import aiohttp
 import asyncio
-from kyber_chains import CHAINS
+from kyber_chains import TOKENS
 
 BASE_URL = "https://aggregator-api.kyberswap.com"
 HEADERS = {"x-client-id": "snapshot-script"}
@@ -83,13 +83,13 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
     return last_error
 
 
-async def take_kyber_snapshot():
+async def take_kyber_snapshot(active_token):
     """
     Restituisce una lista di simulazioni swap, una per chain.
     """
     async with aiohttp.ClientSession() as session:
         while True:
-            tasks = [simulate_swap(session, chain_cfg) for chain_cfg in CHAINS]
+            tasks = [simulate_swap(session, chain_cfg) for chain_cfg in TOKENS[active_token]]
             return await asyncio.gather(*tasks)
 
 

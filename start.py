@@ -1,14 +1,18 @@
 import asyncio
 import time
 
-from a_kyber_snapshot import take_kyber_snapshot
-from a_kyber_diff_from_mean import compute_diff_from_mean
+from kyber_chains import TOKENS
+from monitoring import take_kyber_snapshot
+from kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
 
-
+'''
 from a_kyber_simulation import simulate_signal
 from a_sign_send import send_swap
 from a_notify import notify
+'''
+
+import sys
 
 
 async def main():
@@ -17,8 +21,8 @@ async def main():
     Qui vengono orchestrate le varie fasi del flow.
     """
 
-    while True:
-        kyber_snapshot = await take_kyber_snapshot()
+    for active_token in TOKENS:
+        kyber_snapshot = await take_kyber_snapshot(active_token)
 
         start = time.time()
 
@@ -37,7 +41,9 @@ async def main():
         signal = evaluate(diffs)
         
         if signal:
-            print("✅ SEGNALE:", signal)
+            print("✅ BEST SIGANL:", signal)
+
+            sys.exit()
 
             # amount_in = 
             
@@ -68,6 +74,8 @@ async def main():
                 else:
                     print(f"🚀 Transaction inviata: 0x{tx_hash}")
                 break
+        
+        time.sleep(5)
 
     return
 
