@@ -1,0 +1,79 @@
+import asyncio
+import time
+
+from a_kyber_snapshot import take_kyber_snapshot
+from a_kyber_diff_from_mean import compute_diff_from_mean
+from a_pool_monitor import monitor_pools
+from a_check_signals import check_signals
+from a_get_amount import compute_dynamic_amount
+from a_get_better_amount import compute_swap_for_target
+from a_signal_threshold import THRESHOLDS
+from a_kyber_simulation import simulate_signal
+from a_sign_send import send_swap
+from a_notify import notify
+
+
+async def main():
+    """
+    Entry point principale dell'arbitrage engine.
+    Qui vengono orchestrate le varie fasi del flow.
+    """
+
+    while True:
+        kyber_snapshot = await take_kyber_snapshot()
+
+        start = time.time()
+
+        diffs = compute_diff_from_mean(kyber_snapshot)
+
+        for k in kyber_snapshot:
+            print(
+                f"chain: {k['chain']}, ok: {k['ok']}, "
+                f"amount in: {k.get('amount_in', [])}, amount out: {k.get('amount_out', [])}, "
+                f"gas: {k.get('gas', [])}, gas price: {k.get('gas_price', [])}"
+            )
+
+        for d in diffs:
+            print(d)
+
+        print("Pool monitor avviato.")
+        signal = await monitor_pools(diffs, on_update=check_signals)
+
+        if signal:
+            threshold = THRESHOLDS[signal["threshold_used"]]["min_spread"]
+            # amount_in = compute_dynamic_amount(signal["spread"], threshold) ---> Replaced
+            amount_in, _ = await compute_swap_for_target(signal["buy_chain"], signal["spread"], threshold)
+            print(f"Amount da swappare: 0.0{str(amount_in)[:3]} ETH")
+            result = await simulate_signal(signal, amount_in)
+
+            if not result["ok"]:
+                print(f"Tentativo di swap interrotto: {result['stage']}")
+                continue
+
+            print(f"🧪 Tentativo di swap avviato: {result}")
+
+            await notify(
+                f"🧪 Tentativo di swap in corso per 0.0{str(amount_in)[:3]} ETH: {result['signal']}"
+            )
+
+            # -----------------------------
+            # Firma e invio
+            # -----------------------------
+            dry_run = True  # Imposta su False per effettuare transazioni
+
+            tx_hash = await send_swap(result, dry_run=dry_run)
+
+            if tx_hash:
+                end = time.time()
+                print(f"Tempo impiegato: {end - start} secondi")
+                if dry_run:
+                    print("🟢 Dry run OK — la tx non revertirebbe")
+                else:
+                    print(f"🚀 Transaction inviata: 0x{tx_hash}")
+                break
+
+    return
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
