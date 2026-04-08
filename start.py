@@ -7,6 +7,7 @@ from kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
 from notify import send_notification
 from signal_confirmation import confirm_signal
+
 """
 from a_sign_send import send_swap
 from a_notify import notify
@@ -42,7 +43,6 @@ async def main():
             print("✅ BEST SIGANL:", signal)
             await send_notification(f"✅ BEST SIGANL: {signal}")
 
-
             # c'è da sistemare profit_check, perchè le gas fees
             # sono calcolate in ETH: forse conviene controllare a quanto
             # ammontano e procedere solo se costano meno di 2 centesimi di dollaro;
@@ -56,9 +56,7 @@ async def main():
 
             print(f"🧪 Tentativo di swap avviato: {result}")
 
-            await notify(
-                f"🧪 Tentativo di swap in corso: {result['signal']}"
-            )
+            await notify(f"🧪 Tentativo di swap in corso: {result['signal']}")
 
             continue
 

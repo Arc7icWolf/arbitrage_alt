@@ -10,7 +10,9 @@ from profit_check import is_swap_profitable
 import sys
 
 
-def get_chain_cfg(active_token: str, chain_name: str, *, override_amount_in=None) -> dict:
+def get_chain_cfg(
+    active_token: str, chain_name: str, *, override_amount_in=None
+) -> dict:
     """
     Restituisce la configurazione della chain corretta per il token attivo.
     """
@@ -72,8 +74,9 @@ async def confirm_signal(active_token: str, signal: dict, amount_in: float) -> d
         decimals = TOKENS[active_token][sell_chain]["token_out_decimals"]
 
         raw_out = int(
-            (Decimal(str(amount_human)) * (Decimal(10) ** decimals))
-            .to_integral_value(rounding=ROUND_DOWN)
+            (Decimal(str(amount_human)) * (Decimal(10) ** decimals)).to_integral_value(
+                rounding=ROUND_DOWN
+            )
         )
 
         # === 2️⃣ SELL: SPS -> token_in ===
@@ -100,8 +103,9 @@ async def confirm_signal(active_token: str, signal: dict, amount_in: float) -> d
         decimals = TOKENS[active_token][sell_chain]["token_in_decimals"]
 
         raw_amount_out_eth = int(
-            (Decimal(str(amount_out_eth)) * (Decimal(10) ** decimals))
-            .to_integral_value(rounding=ROUND_DOWN)
+            (
+                Decimal(str(amount_out_eth)) * (Decimal(10) ** decimals)
+            ).to_integral_value(rounding=ROUND_DOWN)
         )
 
         buy_gas_price = Decimal(buy_result.get("gas_price", 0))

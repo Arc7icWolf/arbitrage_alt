@@ -92,7 +92,7 @@ async def take_kyber_snapshot(active_token):
     async with aiohttp.ClientSession() as session:
         while True:
             tasks = [
-                simulate_swap(session, chain_name, chain_cfg) 
+                simulate_swap(session, chain_name, chain_cfg)
                 for chain_name, chain_cfg in TOKENS[active_token].items()
             ]
             return await asyncio.gather(*tasks)
