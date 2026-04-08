@@ -7,13 +7,11 @@ from kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
 from notify import send_notification
 
-'''
+"""
 from a_kyber_simulation import simulate_signal
 from a_sign_send import send_swap
 from a_notify import notify
-'''
-
-import sys
+"""
 
 
 async def main():
@@ -24,7 +22,7 @@ async def main():
 
     for active_token in TOKENS:
         start = time.time()
-        
+
         kyber_snapshot = await take_kyber_snapshot(active_token)
 
         diffs = compute_diff_from_mean(kyber_snapshot)
@@ -38,16 +36,17 @@ async def main():
 
         for d in diffs:
             print(d)
-        
-        signal = evaluate(diffs)
-        
+
+        signal = evaluate(diffs, active_token)
+
         if signal:
             print("✅ BEST SIGANL:", signal)
             await send_notification(f"✅ BEST SIGANL: {signal}")
 
-            sys.exit()
-            # amount_in = 
-            
+            continue
+
+            # amount_in =
+
             result = await simulate_signal(signal, amount_in)
 
             if not result["ok"]:
@@ -75,7 +74,7 @@ async def main():
                 else:
                     print(f"🚀 Transaction inviata: 0x{tx_hash}")
                 break
-        
+
         time.sleep(5)
 
     return

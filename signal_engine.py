@@ -4,6 +4,7 @@ from itertools import combinations
 
 from signal_threshold import THRESHOLDS
 
+
 def normalize_entries(diffs):
     """
     Normalizza l'input in una struttura uniforme.
@@ -17,7 +18,7 @@ def normalize_entries(diffs):
     ]
 
 
-def compute_signals(entries):
+def compute_signals(entries, active_token):
     """
     Genera tutti i segnali validi basati sulle soglie.
     """
@@ -34,7 +35,7 @@ def compute_signals(entries):
         key = f"{high['chain']}-{low['chain']}"
 
         # soglia specifica o default
-        rule = THRESHOLDS.get(key, THRESHOLDS["default"])
+        rule = THRESHOLDS[active_token].get(key, THRESHOLDS[active_token]["default"])
         min_spread = rule["min_spread"]
 
         if spread >= min_spread:
@@ -65,19 +66,18 @@ def select_best_signal(signals):
     return max(signals, key=lambda s: s["spread"])
 
 
-def evaluate(diffs):
+def evaluate(diffs, active_token):
     """
     Entry point principale.
 
     - normalizza input
     - calcola segnali
     - seleziona il migliore
-    - applica filtro should_buy_only
     """
 
     entries = normalize_entries(diffs)
 
-    signals = compute_signals(entries)
+    signals = compute_signals(entries, active_token)
     best_signal = select_best_signal(signals)
 
     if not best_signal:
