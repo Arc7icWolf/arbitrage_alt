@@ -6,11 +6,6 @@ from a_kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
 
 
-
-from a_check_signals import check_signals
-from a_get_amount import compute_dynamic_amount
-from a_get_better_amount import compute_swap_for_target
-from a_signal_threshold import THRESHOLDS
 from a_kyber_simulation import simulate_signal
 from a_sign_send import send_swap
 from a_notify import notify
@@ -42,13 +37,10 @@ async def main():
         signal = evaluate(diffs)
         
         if signal:
-            print("✅ SEGNALE FINALE:", signal)
+            print("✅ SEGNALE:", signal)
 
-
-            threshold = THRESHOLDS[signal["threshold_used"]]["min_spread"]
-            # amount_in = compute_dynamic_amount(signal["spread"], threshold) ---> Replaced
-            amount_in, _ = await compute_swap_for_target(signal["buy_chain"], signal["spread"], threshold)
-            print(f"Amount da swappare: 0.0{str(amount_in)[:3]} ETH")
+            # amount_in = 
+            
             result = await simulate_signal(signal, amount_in)
 
             if not result["ok"]:
