@@ -6,9 +6,8 @@ from monitoring import take_kyber_snapshot
 from kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
 from notify import send_notification
-
+from signal_confirmation import confirm_signal
 """
-from a_kyber_simulation import simulate_signal
 from a_sign_send import send_swap
 from a_notify import notify
 """
@@ -43,11 +42,13 @@ async def main():
             print("✅ BEST SIGANL:", signal)
             await send_notification(f"✅ BEST SIGANL: {signal}")
 
-            continue
 
-            # amount_in =
-
-            result = await simulate_signal(signal, amount_in)
+            # c'è da sistemare profit_check, perchè le gas fees
+            # sono calcolate in ETH: forse conviene controllare a quanto
+            # ammontano e procedere solo se costano meno di 2 centesimi di dollaro;
+            # inoltre c'è da aggiungere le commissioni di across: anche qui forse basta
+            # togliere un paio di centesimi dal risultato
+            result = await confirm_signal(active_token, signal, amount_in=None)
 
             if not result["ok"]:
                 print(f"Tentativo di swap interrotto: {result['stage']}")
@@ -56,8 +57,10 @@ async def main():
             print(f"🧪 Tentativo di swap avviato: {result}")
 
             await notify(
-                f"🧪 Tentativo di swap in corso per 0.0{str(amount_in)[:3]} ETH: {result['signal']}"
+                f"🧪 Tentativo di swap in corso: {result['signal']}"
             )
+
+            continue
 
             # -----------------------------
             # Firma e invio

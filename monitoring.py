@@ -6,13 +6,13 @@ BASE_URL = "https://aggregator-api.kyberswap.com"
 HEADERS = {"x-client-id": "snapshot-script"}
 
 
-async def simulate_swap(session, chain_cfg, retries: int = 5):
+async def simulate_swap(session, chain_name, chain_cfg, retries: int = 5):
     """
     Simula uno swap tokenIn -> tokenOut su una singola chain.
     Ritenta fino a `retries` volte se la risposta non è valida.
     """
 
-    url = f"{BASE_URL}/{chain_cfg['name']}/api/v1/routes"
+    url = f"{BASE_URL}/{chain_name}/api/v1/routes"
 
     params = {
         "tokenIn": chain_cfg["token_in"],
@@ -23,7 +23,7 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
     last_error = None
 
     for attempt in range(1, retries + 1):
-        print(f"Attempt n. {attempt} for {chain_cfg["name"]}")
+        print(f"Attempt n. {attempt} for {chain_name}")
         try:
             async with session.get(
                 url, params=params, headers=HEADERS, timeout=10
@@ -52,7 +52,7 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
                         normalized_out = raw_out / (10**decimals)
 
                         return {
-                            "chain": chain_cfg["name"],
+                            "chain": chain_name,
                             "ok": True,
                             "amount_in": summary["amountIn"],
                             "amount_out": normalized_out,
@@ -63,7 +63,7 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
 
                     # falliti tutti i tentativi
                     return last_error or {
-                        "chain": chain_cfg["name"],
+                        "chain": chain_name,
                         "ok": False,
                         "reason": "unknown_failure",
                     }
@@ -71,7 +71,7 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
         except Exception as e:
             # --- errore di rete / timeout ---
             last_error = {
-                "chain": chain_cfg["name"],
+                "chain": chain_name,
                 "ok": False,
                 "exception": str(e),
                 "attempt": attempt,
@@ -92,7 +92,8 @@ async def take_kyber_snapshot(active_token):
     async with aiohttp.ClientSession() as session:
         while True:
             tasks = [
-                simulate_swap(session, chain_cfg) for chain_cfg in TOKENS[active_token]
+                simulate_swap(session, chain_name, chain_cfg) 
+                for chain_name, chain_cfg in TOKENS[active_token].items()
             ]
             return await asyncio.gather(*tasks)
 
