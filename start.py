@@ -3,7 +3,10 @@ import time
 
 from a_kyber_snapshot import take_kyber_snapshot
 from a_kyber_diff_from_mean import compute_diff_from_mean
-from a_pool_monitor import monitor_pools
+from signal_engine import evaluate
+
+
+
 from a_check_signals import check_signals
 from a_get_amount import compute_dynamic_amount
 from a_get_better_amount import compute_swap_for_target
@@ -35,11 +38,13 @@ async def main():
 
         for d in diffs:
             print(d)
-
-        print("Pool monitor avviato.")
-        signal = await monitor_pools(diffs, on_update=check_signals)
-
+        
+        signal = evaluate(diffs)
+        
         if signal:
+            print("✅ SEGNALE FINALE:", signal)
+
+
             threshold = THRESHOLDS[signal["threshold_used"]]["min_spread"]
             # amount_in = compute_dynamic_amount(signal["spread"], threshold) ---> Replaced
             amount_in, _ = await compute_swap_for_target(signal["buy_chain"], signal["spread"], threshold)
