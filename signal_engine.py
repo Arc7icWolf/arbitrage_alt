@@ -1,0 +1,86 @@
+# signal_engine.py
+
+from itertools import combinations
+
+from signal_threshold import THRESHOLDS
+
+def normalize_entries(diffs):
+    """
+    Normalizza l'input in una struttura uniforme.
+    """
+    return [
+        {
+            "chain": d["chain"],
+            "diff": float(d["diff"]),
+        }
+        for d in diffs
+    ]
+
+
+def compute_signals(entries):
+    """
+    Genera tutti i segnali validi basati sulle soglie.
+    """
+    signals = []
+
+    for a, b in combinations(entries, 2):
+        # determina direzione
+        if a["diff"] >= b["diff"]:
+            high, low = a, b
+        else:
+            high, low = b, a
+
+        spread = high["diff"] - low["diff"]
+        key = f"{high['chain']}-{low['chain']}"
+
+        # soglia specifica o default
+        rule = THRESHOLDS.get(key, THRESHOLDS["default"])
+        min_spread = rule["min_spread"]
+
+        if spread >= min_spread:
+            signal = {
+                "buy_chain": high["chain"],
+                "sell_chain": low["chain"],
+                "spread": spread,
+                "diffs": {
+                    high["chain"]: high["diff"],
+                    low["chain"]: low["diff"],
+                },
+                "threshold_used": key if key in THRESHOLDS else "default",
+            }
+
+            print("🚨 SEGNALE:", signal)
+            signals.append(signal)
+
+    return signals
+
+
+def select_best_signal(signals):
+    """
+    Seleziona il segnale con spread massimo.
+    """
+    if not signals:
+        return None
+
+    return max(signals, key=lambda s: s["spread"])
+
+
+def evaluate(diffs):
+    """
+    Entry point principale.
+
+    - normalizza input
+    - calcola segnali
+    - seleziona il migliore
+    - applica filtro should_buy_only
+    """
+
+    entries = normalize_entries(diffs)
+
+    signals = compute_signals(entries)
+    best_signal = select_best_signal(signals)
+
+    if not best_signal:
+        return None
+
+    return best_signal
