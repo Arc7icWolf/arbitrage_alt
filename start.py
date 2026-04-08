@@ -5,6 +5,7 @@ from kyber_chains import TOKENS
 from monitoring import take_kyber_snapshot
 from kyber_diff_from_mean import compute_diff_from_mean
 from signal_engine import evaluate
+from notify import send_notification
 
 '''
 from a_kyber_simulation import simulate_signal
@@ -42,9 +43,9 @@ async def main():
         
         if signal:
             print("✅ BEST SIGANL:", signal)
+            await send_notification(f"✅ BEST SIGANL: {signal}")
 
             sys.exit()
-
             # amount_in = 
             
             result = await simulate_signal(signal, amount_in)

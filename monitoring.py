@@ -1,13 +1,10 @@
 import aiohttp
 import asyncio
 from kyber_chains import TOKENS
+import sys
 
 BASE_URL = "https://aggregator-api.kyberswap.com"
 HEADERS = {"x-client-id": "snapshot-script"}
-
-
-import asyncio
-
 
 async def simulate_swap(session, chain_cfg, retries: int = 5):
     """
@@ -49,11 +46,16 @@ async def simulate_swap(session, chain_cfg, retries: int = 5):
                     )
 
                     if valid:
+                        raw_out = int(summary["amountOut"])
+                        decimals = chain_cfg["token_out_decimals"]
+
+                        normalized_out = raw_out / (10 ** decimals)
+
                         return {
                             "chain": chain_cfg["name"],
                             "ok": True,
                             "amount_in": summary["amountIn"],
-                            "amount_out": summary["amountOut"],
+                            "amount_out": normalized_out,
                             "gas": summary.get("gas"),
                             "gas_price": summary.get("gasPrice"),
                             "route": route,
