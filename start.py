@@ -22,9 +22,9 @@ async def main():
     """
 
     for active_token in TOKENS:
-        kyber_snapshot = await take_kyber_snapshot(active_token)
-
         start = time.time()
+        
+        kyber_snapshot = await take_kyber_snapshot(active_token)
 
         diffs = compute_diff_from_mean(kyber_snapshot)
 
