@@ -31,6 +31,4 @@ jobs:
           pip install -r requirements.txt || true  # Avoid errors if file doesn't exist
 
       - name: Run script
-        env:
-          HIVE_ACTIVE_KEY: ${{ secrets.HIVE_ACTIVE_KEY }}
-        run: python notify.py
+        run: python start.py
