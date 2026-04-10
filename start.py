@@ -40,8 +40,8 @@ async def main():
         signal = evaluate(diffs, active_token)
 
         if signal:
-            print("✅ BEST SIGANL:", signal)
-            await send_notification(f"✅ BEST SIGNAL: {signal}")
+            print(f"✅ {active_token}: {signal}")
+            await send_notification(f"✅ {active_token}: {signal}")
         
             # c'è da sistemare profit_check, perchè le gas fees
             # sono calcolate in ETH: forse conviene controllare a quanto
