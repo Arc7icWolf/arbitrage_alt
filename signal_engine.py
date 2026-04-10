@@ -40,8 +40,8 @@ def compute_signals(entries, active_token):
 
         if spread >= min_spread:
             signal = {
-                "buy_chain": high["chain"],
-                "sell_chain": low["chain"],
+                "sell_chain": high["chain"],
+                "buy_chain": low["chain"],
                 "spread": spread,
                 "diffs": {
                     high["chain"]: high["diff"],
