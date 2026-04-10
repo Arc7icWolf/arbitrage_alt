@@ -37,7 +37,7 @@ async def confirm_signal(active_token: str, signal: dict, amount_in: float) -> d
 
     async with aiohttp.ClientSession() as session:
 
-        # === 1️⃣ BUY: token_in -> SPS ===
+        # === 1️⃣ BUY: token_in ===
         buy_cfg = get_chain_cfg(active_token, buy_chain, override_amount_in=amount_in)
 
         # ✅ simulate_swap ora richiede chain_name + cfg

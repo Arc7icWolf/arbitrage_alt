@@ -41,13 +41,14 @@ async def main():
 
         if signal:
             print("✅ BEST SIGANL:", signal)
-            await send_notification(f"✅ BEST SIGANL: {signal}")
+            await send_notification(f"✅ BEST SIGNAL: {signal}")
 
             # c'è da sistemare profit_check, perchè le gas fees
             # sono calcolate in ETH: forse conviene controllare a quanto
             # ammontano e procedere solo se costano meno di 2 centesimi di dollaro;
             # inoltre c'è da aggiungere le commissioni di across: anche qui forse basta
             # togliere un paio di centesimi dal risultato
+            
             result = await confirm_signal(active_token, signal, amount_in=None)
 
             if not result["ok"]:
