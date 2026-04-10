@@ -29,10 +29,10 @@ THRESHOLDS = {
     "DEC": {
         # ===== SPECIFICHE =====
         "ethereum-bsc": {
-            "min_spread": 2,
+            "min_spread": 3,
         },
         "bsc-ethereum": {
-            "min_spread": 3,
+            "min_spread": 3.5,
         },
         # ===== DEFAULT =====
         "default": {
