@@ -16,14 +16,14 @@ THRESHOLDS = {
             "min_spread": 3.5,
         },
         "bsc-base": {
-            "min_spread": 1.5,
+            "min_spread": 1.2,
         },
         "base-bsc": {
-            "min_spread": 1.5,
+            "min_spread": 1.2,
         },
         # ===== DEFAULT =====
         "default": {
-            "min_spread": 1.5,
+            "min_spread": 1.2,
         },
     },
     "DEC": {
