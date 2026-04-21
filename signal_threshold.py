@@ -39,4 +39,29 @@ THRESHOLDS = {
             "min_spread": 2,
         },
     },
+    "TRUF": {
+        # ===== SPECIFICHE =====
+        "ethereum-arbitrum": {
+            "min_spread": 0.5,
+        },
+        "arbitrum-ethereum": {
+            "min_spread": 0.5,
+        },
+        "ethereum-base": {
+            "min_spread": 0.5,
+        },
+        "base-ethereum": {
+            "min_spread": 0.5,
+        },
+        "arbitrum-base": {
+            "min_spread": 0.5,
+        },
+        "base-arbitrum": {
+            "min_spread": 0.5,
+        },
+        # ===== DEFAULT =====
+        "default": {
+            "min_spread": 0.5,
+        },
+    },
 }
