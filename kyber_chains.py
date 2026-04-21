@@ -52,7 +52,7 @@ TOKENS = {
         },
         "arbitrum": {
             "token_in": "0xB59c8912c83157a955f9D715E556257F432C35D7",
-            "token_out": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
+            "token_out": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
             "token_in_decimals": 18,
             "token_out_decimals": 6, 
             "amount_in": str(2500 * 10**18),  # 2.500 TRUF
