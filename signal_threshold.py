@@ -39,7 +39,37 @@ THRESHOLDS = {
             "min_spread": 2,
         },
     },
-    "TRUF": {
+    "COMP": {
+        # ===== SPECIFICHE =====
+        "bsc-arbitrum": {
+            "min_spread": 1,
+        },
+        "arbitrum-bsc": {
+            "min_spread": 1,
+        },
+        "bsc-base": {
+            "min_spread": 1,
+        },
+        "base-bsc": {
+            "min_spread": 1,
+        },
+        "arbitrum-base": {
+            "min_spread": 1,
+        },
+        "base-arbitrum": {
+            "min_spread": 1,
+        },
+        # ===== DEFAULT =====
+        "default": {
+            "min_spread": 1,
+        },
+    },
+}
+
+
+
+'''
+"TRUF": {
         # ===== SPECIFICHE =====
         "ethereum-arbitrum": {
             "min_spread": 0.5,
@@ -64,4 +94,4 @@ THRESHOLDS = {
             "min_spread": 0.5,
         },
     },
-}
+    '''
