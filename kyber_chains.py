@@ -68,8 +68,7 @@ TOKENS = {
 }
 
 
-
-    '''
+'''
     "TRUF": {
         "ethereum": {
             "token_in": "0x243c9be13fAbA09F945ccc565547293337Da0Ad7",
@@ -93,4 +92,4 @@ TOKENS = {
             "amount_in": str(2500 * 10**18),  # 2.500 TRUF
         },
     },  
-    '''
+'''
