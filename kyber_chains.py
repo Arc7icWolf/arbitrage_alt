@@ -42,6 +42,34 @@ TOKENS = {
             "amount_in": str(2 * 10**7),  # 20.000 DEC
         },
     },
+    "COMP": {
+        "bsc": {
+            "token_in": "0x52ce071bd9b1c4b00a0b92d298c512478cad67e8",
+            "token_out": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",  # USDC
+            "token_in_decimals": 18,
+            "token_out_decimals": 18,
+            "amount_in": str(2500 * 10**18),  # 2.500 TRUF
+        },
+        "base": {
+            "token_in": "0x9e1028F5F1D5eDE59748FFceE5532509976840E0",
+            "token_out": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",  # USDC
+            "token_in_decimals": 18,
+            "token_out_decimals": 6,
+            "amount_in": str(2500 * 10**18),  # 2.500 TRUF
+        },
+        "arbitrum": {
+            "token_in": "0x354A6dA3fcde098F8389cad84b0182725c6C91dE",
+            "token_out": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+            "token_in_decimals": 18,
+            "token_out_decimals": 6, 
+            "amount_in": str(2500 * 10**18),  # 2.500 TRUF
+        },
+    },   
+}
+
+
+
+    '''
     "TRUF": {
         "ethereum": {
             "token_in": "0x243c9be13fAbA09F945ccc565547293337Da0Ad7",
@@ -64,5 +92,5 @@ TOKENS = {
             "token_out_decimals": 6,
             "amount_in": str(2500 * 10**18),  # 2.500 TRUF
         },
-    },   
-}
+    },  
+    '''
