@@ -32,14 +32,14 @@ TOKENS = {
             "token_out": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",  # USDC
             "token_in_decimals": 6,
             "token_out_decimals": 6,
-            "amount_in": str(2 * 10**7),  # 20.000 DEC
+            "amount_in": str(20 * 10**6),  # 20.000 DEC
         },
         "bsc": {
             "token_in": "0xE9D7023f2132D55cbd4Ee1f78273CB7a3e74F10A",
             "token_out": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",  # USDC
             "token_in_decimals": 6,
             "token_out_decimals": 18,
-            "amount_in": str(2 * 10**7),  # 20.000 DEC
+            "amount_in": str(20 * 10**6),  # 20.000 DEC
         },
     },
     "COMP": {
@@ -48,21 +48,21 @@ TOKENS = {
             "token_out": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",  # USDC
             "token_in_decimals": 18,
             "token_out_decimals": 18,
-            "amount_in": str(0.5 * 10**18),  # 0.5 COMP
+            "amount_in": str(5 * 10**17),  # 0.5 COMP
         },
         "base": {
             "token_in": "0x9e1028F5F1D5eDE59748FFceE5532509976840E0",
             "token_out": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",  # USDC
             "token_in_decimals": 18,
             "token_out_decimals": 6,
-            "amount_in": str(0.5 * 10**18),  # 0.5 COMP
+            "amount_in": str(5 * 10**17),  # 0.5 COMP
         },
         "arbitrum": {
             "token_in": "0x354A6dA3fcde098F8389cad84b0182725c6C91dE",
             "token_out": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
             "token_in_decimals": 18,
             "token_out_decimals": 6, 
-            "amount_in": str(0.5 * 10**18),  # 0.5 COMP
+            "amount_in": str(5 * 10**17),  # 0.5 COMP
         },
     },   
 }
