@@ -64,7 +64,30 @@ TOKENS = {
             "token_out_decimals": 6, 
             "amount_in": str(5 * 10**17),  # 0.5 COMP
         },
-    },   
+    },
+    "SAND": {
+        "bsc": {
+            "token_in": "0x67b725d7e342d7B611fa85e859Df9697D9378B2e",
+            "token_out": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",  # USDC
+            "token_in_decimals": 18,
+            "token_out_decimals": 18,
+            "amount_in": str(150 * 10**18),  # 150 SAND
+        },
+        "base": {
+            "token_in": "0xac531Eb26Ca1d21b85126De8FB87E80E09002DcF",
+            "token_out": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",  # USDC
+            "token_in_decimals": 18,
+            "token_out_decimals": 6,
+            "amount_in": str(150 * 10**18),  # 150 SAND
+        },
+        "polygon": {
+            "token_in": "0xBbba073C31bF03b8ACf7c28EF0738DeCF3695683",
+            "token_out": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",  # USDC (Polygon)
+            "token_in_decimals": 18,
+            "token_out_decimals": 6,
+            "amount_in": str(150 * 10**18),  # 150 SAND
+        },
+    },
 }
 
 
