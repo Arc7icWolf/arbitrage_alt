@@ -64,6 +64,31 @@ THRESHOLDS = {
             "min_spread": 1,
         },
     },
+    "SAND": {
+        # ===== SPECIFICHE =====
+        "bsc-polygon": {
+            "min_spread": 1,
+        },
+        "polygon-bsc": {
+            "min_spread": 1,
+        },
+        "bsc-base": {
+            "min_spread": 1,
+        },
+        "base-bsc": {
+            "min_spread": 1,
+        },
+        "polygon-base": {
+            "min_spread": 1,
+        },
+        "base-polygon": {
+            "min_spread": 1,
+        },
+        # ===== DEFAULT =====
+        "default": {
+            "min_spread": 1,
+        },
+    },
 }
 
 
