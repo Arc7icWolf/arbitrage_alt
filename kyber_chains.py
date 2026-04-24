@@ -64,6 +64,13 @@ TOKENS = {
             "token_out_decimals": 6, 
             "amount_in": str(5 * 10**17),  # 0.5 COMP
         },
+        "bsc": {
+            "token_in": "0x52CE071Bd9b1C4B00A0b92D298c512478CaD67e8",
+            "token_out": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",  # USDC
+            "token_in_decimals": 18,
+            "token_out_decimals": 18,
+            "amount_in": str(5 * 10**17),  # 0.5 COMP
+        },
     },   
 }
 
