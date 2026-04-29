@@ -47,7 +47,7 @@ def compute_signals(entries, active_token):
                     high["chain"]: high["diff"],
                     low["chain"]: low["diff"],
                 },
-                "threshold_used": key if key in THRESHOLDS else "default",
+                "threshold_used": rule,
             }
 
             print("🚨 SIGNAL:", signal)
